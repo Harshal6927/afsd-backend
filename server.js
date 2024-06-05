@@ -6,17 +6,17 @@ const {
 const express = require("express");
 const http = require("http");
 const cors = require("cors");
-const { typeDefs, resolvers } = require("./schema");
+const { typeDefs } = require("./typedef");
+const { resolvers } = require("./resolver");
 const app = express();
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const UserRoute = require("./routes/user");
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
+// load environment variables
 dotenv.config({ path: __dirname + "/.env" });
+
+// database connection
 mongoose.Promise = global.Promise;
 mongoose
     .connect(process.env.MONGODB_URI)
@@ -28,13 +28,9 @@ mongoose
         process.exit();
     });
 
-app.use("/user", UserRoute);
-
-app.get("/", (req, res) => {
-    res.json({ message: "Hello Crud Node Express" });
-});
-
-// graphql
+// middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 const startServer = async () => {
     const httpServer = http.createServer(app);
