@@ -1,4 +1,4 @@
-let mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 let schema = new mongoose.Schema({
     email: {
@@ -25,4 +25,4 @@ let schema = new mongoose.Schema({
 });
 
 let user = new mongoose.model("User", schema);
-module.exports = user;
+export default user;

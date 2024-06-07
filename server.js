@@ -1,20 +1,19 @@
-const { ApolloServer } = require("@apollo/server");
-const { expressMiddleware } = require("@apollo/server/express4");
-const {
-    ApolloServerPluginDrainHttpServer,
-} = require("@apollo/server/plugin/drainHttpServer");
-const express = require("express");
-const http = require("http");
-const cors = require("cors");
-const { typeDefs } = require("./typedef");
-const { resolvers } = require("./resolver");
+import { ApolloServer } from "@apollo/server";
+import { expressMiddleware } from "@apollo/server/express4";
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
+import express from "express";
+import http from "http";
+import cors from "cors";
+import typeDefs from "./typedef.js";
+import resolvers from "./resolver.js";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+
 const app = express();
-const dotenv = require("dotenv");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 
 // load environment variables
-dotenv.config({ path: __dirname + "/.env" });
+dotenv.config();
 
 // database connection
 mongoose.Promise = global.Promise;
